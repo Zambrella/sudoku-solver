@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_solver/models/board_square.dart';
-import 'package:sudoku_solver/widgets/sudoku_cell.dart';
+import '../models/board_square.dart';
+import 'sudoku_cell.dart';
 import 'package:provider/provider.dart';
-import 'package:sudoku_solver/models/sudoku_grid.dart';
+import '../models/sudoku_grid.dart';
 
 class SudokuTable extends StatelessWidget {
   static const _borderRadius = 15.0;
@@ -29,20 +29,17 @@ class SudokuTable extends StatelessWidget {
         borderRadius: BorderRadius.all(
           Radius.circular(_borderRadius),
         ),
-        child: Container(
-          child: Table(
-            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-            children: List.generate(
-              Provider.of<SudokuGrid>(context, listen: false).height,
-              (int rowNumber) => TableRow(
-                children: List.generate(
-                  Provider.of<SudokuGrid>(context, listen: false).width,
-                  (int columnNumber) =>
-                      ChangeNotifierProvider<BoardSquare>.value(
-                    value: Provider.of<SudokuGrid>(context).userBoard[rowNumber]
-                        [columnNumber],
-                    child: SudokuCell(),
-                  ),
+        child: Table(
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          children: List.generate(
+            Provider.of<SudokuGrid>(context, listen: false).height,
+            (int rowNumber) => TableRow(
+              children: List.generate(
+                Provider.of<SudokuGrid>(context, listen: false).width,
+                (int columnNumber) => ChangeNotifierProvider<BoardSquare>.value(
+                  value: Provider.of<SudokuGrid>(context).userBoard[rowNumber]
+                      [columnNumber],
+                  child: SudokuCell(),
                 ),
               ),
             ),

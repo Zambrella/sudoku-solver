@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku_solver/constants/enums.dart';
-import 'package:sudoku_solver/models/sudoku_grid.dart';
+import '../constants/enums.dart';
+import '../models/sudoku_grid.dart';
 import 'package:provider/provider.dart';
-import 'package:sudoku_solver/widgets/custom_slider_thumb_rect.dart';
+import 'custom_slider_thumb_rect.dart';
 
 class AnimatedSolveButton extends StatefulWidget {
   @override
@@ -26,8 +26,6 @@ class _AnimatedSolveButtonState extends State<AnimatedSolveButton>
   AnimationController _sliderThumbController;
   Animation<double> _loadingAnimation;
   AnimationController _loadingController;
-  Animation<double> _backgroundSliderAnimation;
-  AnimationController _backgroundSliderController;
 
   @override
   void initState() {
@@ -67,7 +65,6 @@ class _AnimatedSolveButtonState extends State<AnimatedSolveButton>
     });
 
     // Initialise background slider animation
-    _backgroundSliderController = AnimationController(vsync: this);
   }
 
   @override

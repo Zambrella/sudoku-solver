@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:sudoku_solver/models/sudoku_grid.dart';
+import '../models/sudoku_grid.dart';
 
 class KeyPadCell extends StatelessWidget {
   KeyPadCell({@required this.numberValue}) : assert(numberValue >= 0);
@@ -16,36 +16,42 @@ class KeyPadCell extends StatelessWidget {
             .updateSelectedNumber(numberValue);
       },
       child: Container(
-        // Need to resize the key cells if the screen is too small
-        height: MediaQuery.of(context).size.height < 620 ? 35 : 40,
-        width: MediaQuery.of(context).size.height < 620 ? 35 : 40,
+        height: MediaQuery.of(context).size.width >= 800 ? 60 : 35,
+        width: MediaQuery.of(context).size.width >= 800 ? 60 : 35,
         decoration: BoxDecoration(
             color:
                 numberValue == Provider.of<SudokuGrid>(context).selectedNumber
                     ? Colors.blueAccent
                     : Colors.transparent,
-            border: Border.all(color: Colors.blueAccent[400], width: 1),
+            border: Border.all(
+                color: Colors.blueAccent,
+                width: MediaQuery.of(context).size.width >= 800 ? 2 : 1),
             borderRadius: BorderRadius.circular(8.0)),
-        child: Center(
-          child: numberValue == 0
-              ? Icon(
-                  Entypo.eraser,
-                  color: numberValue ==
-                          Provider.of<SudokuGrid>(context).selectedNumber
-                      ? Colors.white
-                      : Colors.blue[900],
-                )
-              : Text(
-                  // Instead of showing the number 0, we want the user to be able to a blank space
-                  numberValue.toString(),
-                  style: TextStyle(
+        child: Padding(
+          padding: EdgeInsets.all(
+              MediaQuery.of(context).size.width >= 800 ? 16.0 : 10.0),
+          child: FittedBox(
+            fit: BoxFit.fitWidth,
+            child: numberValue == 0
+                ? Icon(
+                    Entypo.eraser,
                     color: numberValue ==
                             Provider.of<SudokuGrid>(context).selectedNumber
                         ? Colors.white
                         : Colors.blue[900],
-                    fontSize: 18,
+                  )
+                : Text(
+                    // Instead of showing the number 0, we want the user to be able to a blank space
+                    numberValue.toString(),
+                    style: TextStyle(
+                      color: numberValue ==
+                              Provider.of<SudokuGrid>(context).selectedNumber
+                          ? Colors.white
+                          : Colors.blue[900],
+                      // fontSize: 18,
+                    ),
                   ),
-                ),
+          ),
         ),
       ),
     );
